@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import Illustration from './Illustration.astro';
 import gilda from '../assets/photos/gilda.jpg';
+import grifo from '../assets/photos/grifo-vermu.jpg';
 import barra from '../assets/photos/rincones-interior.jpg';
 ---
 <section class="pillars section" aria-labelledby="pillars-title">
@@ -21,8 +21,8 @@ import barra from '../assets/photos/rincones-interior.jpg';
       </li>
       <li class="pillar reveal">
         <span class="pillar__num" aria-hidden="true">02</span>
-        <figure class="pillar__media pillar__media--illu">
-          <Illustration name="vermut" />
+        <figure class="pillar__media pillar__media--grifo zoom">
+          <Image src={grifo} alt="Grifo de vermú de Gildas en Alcoy sirviendo un vaso con hielo junto a la vitrina de gildas" widths={[360, 540]} sizes="(min-width: 900px) 30vw, 90vw" loading="lazy" />
         </figure>
         <h3 class="pillar__title">Vermú de grifo</h3>
         <p>Vermú casero de grifo, servido a tu gusto: con o sin aceituna, con su rodaja de naranja y con más o menos hielo.</p>

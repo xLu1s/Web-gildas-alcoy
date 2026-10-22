@@ -244,8 +244,7 @@ ul[role='list'], ol[role='list'] { list-style: none; margin: 0; padding: 0; }
 }
 .pillar__media { margin: 0 0 1.5rem; aspect-ratio: 4 / 5; overflow: hidden; background: var(--olive); }
 .pillar__media img { width: 100%; height: 100%; object-fit: cover; }
-.pillar__media--illu { display: grid; place-items: center; color: var(--cream); }
-.pillar__media--illu svg { width: 88%; }
+.pillar__media--grifo img { object-position: 50% 40%; }
 .pillar__title { font-family: var(--f-display); text-transform: uppercase; letter-spacing: var(--track); font-size: 1.9rem; font-weight: 500; margin-bottom: 0.6rem; }
 .pillar p { color: var(--ink-soft); max-width: 34ch; }
 @media (max-width: 900px) {
