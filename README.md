@@ -13,9 +13,9 @@ npm run preview           # sirve dist/ respetando el base
 ```
 
 ## Contenido
-- Datos del negocio, horario y JSON-LD de horario: `src/data/site.ts` (horario de Instagram, **pendiente de confirmar**).
+- Datos del negocio, horario y JSON-LD de horario: `src/data/site.ts` (horario de Instagram).
 - Carta completa (transcrita de los PDF de `docs/`): `src/data/menu.ts`. Se muestra en la portada (#carta) y en `/carta/` (para el QR de mesa).
-- Reseñas: `src/data/reviews.ts` (solo 5★ confirmadas; hay otras pendientes comentadas).
+- Reseñas: `src/data/reviews.ts` (solo reseñas literales de 5★; rejilla 2×2 en escritorio y carrusel deslizable en móvil).
 - Galería: `src/data/gallery.ts` + `src/assets/photos/`. Fuentes de cada imagen y del vídeo: `docs/FUENTES-imagenes.md`.
 - Logo: `src/assets/gildas-logo.svg` (vectorizado del logo público de 526 px) y `gilda-icon.svg`. Sustituir por el vectorial oficial cuando lo pase el cliente.
 - Hero: `src/components/Hero.astro`. Vídeo en `public/video/hero.{webm,mp4}` + `poster.jpg` (fragmento del reel https://www.instagram.com/reel/Dey_IVRzZ5g/). Para cambiarlo, sustituir esos archivos o pasar las props `webm`, `mp4` y `poster`.

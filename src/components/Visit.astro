@@ -1,5 +1,6 @@
 ---
 import Illustration from './Illustration.astro';
+import WhatsAppIcon from './WhatsAppIcon.astro';
 import { site, hours } from '../data/site';
 ---
 <section class="visit section" id="visitanos" aria-labelledby="visit-title">
@@ -12,9 +13,12 @@ import { site, hours } from '../data/site';
     <div class="visit__block visit__reserve reveal" id="reservar">
       <span class="visit__num" aria-hidden="true">01</span>
       <h3>Reservas</h3>
-      <p>Reserva tu mesa por teléfono. El rincón de terraza funciona sin reserva.</p>
+      <p>Reserva tu mesa por teléfono o por WhatsApp. El rincón de terraza funciona sin reserva.</p>
       <a class="visit__phone" href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a>
-      <a class="btn btn--olive" href={`tel:${site.phoneE164}`}>Llamar para reservar</a>
+      <div class="visit__btns">
+        <a class="btn btn--olive" href={`tel:${site.phoneE164}`}>Llamar</a>
+        <a class="btn btn--line" href={site.whatsapp} target="_blank" rel="noopener"><WhatsAppIcon size={17} />WhatsApp</a>
+      </div>
     </div>
 
     <div class="visit__block reveal">

@@ -126,6 +126,31 @@ if (fab && hideOn.length && 'IntersectionObserver' in window) {
   hideOn.forEach((el) => io2.observe(el));
 }
 
+// Reseñas: en móvil son un carrusel horizontal. Las tarjetas fuera de pantalla (en horizontal) no
+// dispararían su reveal, así que se revelan todas a la vez, escalonadas, cuando entra el carrusel.
+const rTrack = document.querySelector<HTMLElement>('[data-review-track]');
+const rDots = Array.from(document.querySelectorAll<HTMLElement>('[data-review-dots] span'));
+if (rTrack && rDots.length) {
+  const items = Array.from(rTrack.children) as HTMLElement[];
+  if ('IntersectionObserver' in window) {
+    const io3 = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { items.forEach((it) => it.classList.add('is-visible')); io3.disconnect(); }
+    }, { threshold: 0.2 });
+    io3.observe(rTrack);
+  }
+  let rTick = false;
+  const mark = () => {
+    const x = rTrack.scrollLeft;
+    const base = items[0].offsetLeft;
+    let idx = 0;
+    items.forEach((it, i) => { if (Math.abs(it.offsetLeft - base - x) < Math.abs(items[idx].offsetLeft - base - x)) idx = i; });
+    if (x + rTrack.clientWidth >= rTrack.scrollWidth - 4) idx = items.length - 1;
+    rDots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    rTick = false;
+  };
+  rTrack.addEventListener('scroll', () => { if (!rTick) { rTick = true; requestAnimationFrame(mark); } }, { passive: true });
+}
+
 // Mapa bajo demanda (sin cookies de Google hasta que se pide)
 document.querySelector<HTMLButtonElement>('[data-map-load]')?.addEventListener('click', (e) => {
   const btn = e.currentTarget as HTMLButtonElement;

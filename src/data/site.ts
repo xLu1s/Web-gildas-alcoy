@@ -9,9 +9,10 @@ export const site = {
   tagline: 'Esto va de producto de aquí. De muchas gildas, platos y buen beber.',
   // Claim de la carta [CARTA-C]
   claim: 'verde, salada y un poco picante',
-  // Teléfono [FB]. Google Maps no tiene teléfono. WhatsApp NO confirmado → solo llamada.
+  // Teléfono [FB]. Google Maps no tiene teléfono. El mismo número tiene WhatsApp (confirmado por Luis).
   phoneDisplay: '722 16 07 43',
   phoneE164: '+34722160743',
+  whatsapp: 'https://wa.me/34722160743',
   // Email [FB]. Solo como contacto general (no es canal de reservas confirmado).
   email: 'gildas.alcoy00@gmail.com',
   address: {
@@ -34,9 +35,7 @@ export const site = {
 };
 
 /**
- * HORARIO. ⚠️ PENDIENTE DE CONFIRMAR CON EL CLIENTE.
- * Se usa el de la bio de Instagram (lo mantiene el propio local; la ficha de Google ni siquiera tiene teléfono).
- * Google Maps dice: vie y sáb 12:30–00:30 seguido (sin pausa de tarde).
+ * HORARIO. El de la bio de Instagram (horario definitivo).
  * day: 0 = domingo … 6 = sábado (para resaltar el día actual).
  */
 export const hours: { day: number; label: string; slots: string[] }[] = [

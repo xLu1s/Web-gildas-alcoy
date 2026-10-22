@@ -1,18 +1,26 @@
 ---
 import { reviews } from '../data/reviews';
 import { site } from '../data/site';
+const many = reviews.length > 1;
 ---
 {reviews.length > 0 && (
-  <section class="review section" aria-labelledby="review-title">
+  <section class:list={['review section', { 'review--many': many }]} aria-labelledby="review-title">
     <div class="container review__inner">
       <h2 id="review-title" class="eyebrow reveal">Lo que dicen en Google</h2>
-      {reviews.map((r) => (
-        <figure class="review__item reveal">
-          <p class="review__stars" aria-label={`${r.rating} de 5 estrellas`}>{'★'.repeat(r.rating)}</p>
-          <blockquote class="review__quote"><p>«{r.text}»</p></blockquote>
-          <figcaption>{r.author}{r.badge && <span> · {r.badge}</span>} · Reseña en {r.source}</figcaption>
-        </figure>
-      ))}
+      <div class="review__list" data-review-track tabindex={many ? 0 : undefined} role={many ? 'region' : undefined} aria-label={many ? 'Reseñas de Google (desliza para ver más)' : undefined}>
+        {reviews.map((r, i) => (
+          <figure class="review__item reveal" style={`--d:${(i % 2) * 0.12 + Math.floor(i / 2) * 0.08}s`}>
+            <p class="review__stars" aria-label={`${r.rating} de 5 estrellas`}>{'★'.repeat(r.rating)}</p>
+            <blockquote class="review__quote"><p>«{r.text}»</p></blockquote>
+            <figcaption><strong>{r.author}</strong>{r.badge && <span> · {r.badge}</span>}<br />Reseña en {r.source}</figcaption>
+          </figure>
+        ))}
+      </div>
+      {many && (
+        <div class="review__dots" data-review-dots aria-hidden="true">
+          {reviews.map((_, i) => <span class:list={{ 'is-active': i === 0 }} />)}
+        </div>
+      )}
       <a class="link-arrow reveal" href={site.mapsLink} target="_blank" rel="noopener">Ver todas las reseñas en Google Maps</a>
     </div>
   </section>
