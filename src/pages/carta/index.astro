@@ -1,0 +1,19 @@
+---
+// Página de carta indexable (pensada para el QR de las mesas): misma carta que en la portada.
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Menu from '../../components/Menu.astro';
+import Footer from '../../components/Footer.astro';
+import FloatingReserve from '../../components/FloatingReserve.astro';
+---
+<Base
+  title="Carta de Gildas | Alcoy · Gildas, tapas, vermut y vinos con precios"
+  description="Carta completa de Gildas en Alcoy/Alcoi: gildas, tapas frías, conservas, platitos, tostas, montaditos, postres, vermut de grifo, vinos y cervezas, con precios y alérgenos."
+>
+  <Header solid />
+  <main id="contenido" class="page-carta">
+    <Menu standalone />
+  </main>
+  <Footer />
+  <FloatingReserve />
+</Base>

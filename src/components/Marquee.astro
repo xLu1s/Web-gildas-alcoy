@@ -1,0 +1,10 @@
+---
+interface Props { words: string[]; tone?: 'olive' | 'beige' }
+const { words, tone = 'olive' } = Astro.props;
+const row = words.join(' · ') + ' · ';
+---
+<div class:list={['marquee', `marquee--${tone}`]} aria-hidden="true">
+  <div class="marquee__track">
+    <span>{row}</span><span>{row}</span>
+  </div>
+</div>

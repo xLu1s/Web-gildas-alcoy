@@ -1,0 +1,10 @@
+---
+// Logo REAL de Gildas: vectorizado (potrace) del logo de perfil de Facebook (526 px, la mejor resolución
+// pública). Hereda el color con `currentColor`. Pedir al cliente el vectorial oficial y sustituir el SVG.
+import logo from '../assets/gildas-logo.svg?raw';
+import icon from '../assets/gilda-icon.svg?raw';
+interface Props { variant?: 'full' | 'icon'; class?: string; label?: string }
+const { variant = 'full', class: cls, label = 'Gildas' } = Astro.props;
+const svg = (variant === 'full' ? logo : icon).replace('aria-label="Gildas"', `aria-label="${label}"`);
+---
+<span class:list={['logo', `logo--${variant}`, cls]} set:html={svg} />

@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Intro from '../components/Intro.astro';
+import Pillars from '../components/Pillars.astro';
+import Marquee from '../components/Marquee.astro';
+import Menu from '../components/Menu.astro';
+import Gallery from '../components/Gallery.astro';
+import Review from '../components/Review.astro';
+import Visit from '../components/Visit.astro';
+import Footer from '../components/Footer.astro';
+import FloatingReserve from '../components/FloatingReserve.astro';
+---
+<Base
+  title="Gildas | Alcoy · Bar de gildas, tapas y vermut en Alcoy (Alcoi)"
+  description="Bar de gildas y vermut de grifo en el centro de Alcoy/Alcoi: gildas, tapas, conservas, tostas y vinos en el Carrer Sant Maure 32. Consulta la carta y reserva por teléfono."
+>
+  <Header />
+  <main id="contenido">
+    <Hero />
+    <Intro />
+    <Pillars />
+    <Marquee words={['Gildas', 'Vermú de grifo', 'Conservas', 'Tostas', 'Pericana', 'Vinos por copa']} />
+    <Menu />
+    <Gallery />
+    <Review />
+    <Marquee tone="beige" words={['Verde, salada y un poco picante']} />
+    <Visit />
+  </main>
+  <Footer />
+  <FloatingReserve />
+</Base>

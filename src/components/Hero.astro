@@ -1,0 +1,52 @@
+---
+/**
+ * HERO con vídeo real del Instagram (reel https://www.instagram.com/reel/Dey_IVRzZ5g/), recortado a la
+ * franja sin texto sobreimpreso, sin audio y en bucle de 9,3 s. Ver FUENTES en el README.
+ * Para cambiar de vídeo: sustituir public/video/hero.{webm,mp4} y poster.jpg (mismos nombres) o pasar props.
+ * Con prefers-reduced-motion se oculta el vídeo y queda el póster (CSS + JS pausa la reproducción).
+ */
+import Logo from './Logo.astro';
+import { site, hoursShort } from '../data/site';
+import { publicUrl } from '../lib/base';
+interface Props { webm?: string; mp4?: string; poster?: string }
+const {
+  webm = publicUrl('video/hero.webm'),
+  mp4 = publicUrl('video/hero.mp4'),
+  poster = publicUrl('video/poster.jpg'),
+} = Astro.props;
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media" data-parallax>
+    <img class="hero__poster" src={poster} alt="" width="1280" height="720" fetchpriority="high" decoding="async" />
+    <video class="hero__video" data-hero-video autoplay muted loop playsinline preload="metadata" poster={poster} aria-hidden="true" tabindex="-1">
+      <source src={webm} type="video/webm" />
+      <source src={mp4} type="video/mp4" />
+    </video>
+    <div class="hero__veil"></div>
+  </div>
+
+  <div class="hero__content">
+    <h1 id="hero-title" class="hero__title">
+      <Logo class="hero__logo" label="Gildas" />
+      <span class="sr-only">Gildas | Alcoy: bar de gildas, tapas y vermú en Alcoi</span>
+    </h1>
+    <div class="hero__claim">
+      <p class="hero__big" aria-hidden="true"><span>Esto va</span> <span>de gildas</span></p>
+      <p class="hero__tagline">Gildas, tapas, conservas y vermú de grifo en el centro de Alcoi. Pasa, comparte y disfruta.</p>
+    </div>
+    <div class="hero__actions reveal">
+      <a class="btn btn--accent" href={`tel:${site.phoneE164}`}>Reservar mesa</a>
+      <a class="btn btn--ghost" href="#carta">Ver la carta</a>
+    </div>
+  </div>
+
+  <dl class="hero__facts" aria-label="Datos rápidos">
+    <div><dt>Dónde</dt><dd><a href={site.mapsLink} target="_blank" rel="noopener">{site.address.street} · Alcoi</a></dd></div>
+    {hoursShort.map((h) => <div><dt>{h.days}</dt><dd>{h.time}</dd></div>)}
+    <div><dt>Reservas</dt><dd><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></dd></div>
+  </dl>
+
+  <button class="hero__toggle" type="button" data-video-toggle aria-pressed="false" aria-label="Pausar el vídeo de fondo">
+    <span class="hero__toggle-pause" aria-hidden="true">❚❚</span><span class="hero__toggle-play" aria-hidden="true">▶</span>
+  </button>
+</section>

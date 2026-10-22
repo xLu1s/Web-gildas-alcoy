@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import { galleryMeta } from '../data/gallery';
+import { site } from '../data/site';
+import fachada from '../assets/photos/fachada.jpg';
+import mesas from '../assets/photos/interior-mesas.jpg';
+import pared from '../assets/photos/pared-logo.jpg';
+import canas from '../assets/photos/gildas-y-canas.jpg';
+import vino from '../assets/photos/vino.jpg';
+const items = [
+  { src: fachada, file: 'fachada.jpg', speed: 0.06 },
+  { src: mesas, file: 'interior-mesas.jpg', speed: -0.05 },
+  { src: pared, file: 'pared-logo.jpg', speed: 0.08 },
+  { src: canas, file: 'gildas-y-canas.jpg', speed: -0.04 },
+  { src: vino, file: 'vino.jpg', speed: 0.05 },
+].map((i) => ({ ...i, ...galleryMeta[i.file] }));
+---
+<section class="gallery section" id="local" aria-labelledby="gallery-title">
+  <div class="container gallery__head">
+    <div class="reveal">
+      <p class="eyebrow">El local</p>
+      <h2 id="gallery-title" class="display">Pasa, comparte<br />y disfruta</h2>
+    </div>
+    <p class="gallery__lead reveal">Taberna de hoy en el centro de Alcoi: azulejo blanco, sillas verde botella, mármol, botelleros con luz cálida y una barra con vitrina llena de gildas.</p>
+  </div>
+  <ul class="gallery__grid" role="list" data-gal-track tabindex="0" aria-label="Fotos del local">
+    {items.map((it, i) => (
+      <li class:list={['gallery__item', 'reveal', `gallery__item--${i + 1}`]}>
+        <figure class="zoom">
+          <div class="gallery__frame" data-speed={it.speed}>
+            <Image src={it.src} alt={it.alt} widths={[360, 600, 900]} sizes="(min-width: 900px) 24vw, 72vw" loading="lazy" />
+          </div>
+          <figcaption><span>{String(i + 1).padStart(2, '0')}</span> {it.caption}</figcaption>
+        </figure>
+      </li>
+    ))}
+  </ul>
+  <p class="container gallery__credit">Fotos: <a href={site.instagram} target="_blank" rel="noopener">{site.instagramHandle}</a> y ficha de Google Maps.</p>
+</section>

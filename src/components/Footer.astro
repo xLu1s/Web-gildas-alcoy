@@ -1,0 +1,27 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+import { publicUrl } from '../lib/base';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <a class="site-footer__logo" href={publicUrl('')} aria-label="Gildas | Alcoy, inicio"><Logo label="Gildas" /></a>
+    <div>
+      <p class="site-footer__title">Gildas | Alcoy</p>
+      <p>{site.address.street}<br />{site.address.postalCode} Alcoi, {site.address.region}</p>
+    </div>
+    <div>
+      <p class="site-footer__title">Contacto</p>
+      <p><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <div>
+      <p class="site-footer__title">Síguenos</p>
+      <p><a href={site.instagram} target="_blank" rel="noopener">Instagram {site.instagramHandle}</a><br /><a href={site.facebook} target="_blank" rel="noopener">Facebook</a></p>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© {year} Gildas | Alcoy · Bar de gildas, tapas y vermú en Alcoi</p>
+    <p><a href={publicUrl('carta/')}>Carta</a></p>
+  </div>
+</footer>

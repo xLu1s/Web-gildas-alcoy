@@ -1,0 +1,63 @@
+---
+// Ilustraciones decorativas de línea fina, recreadas en SVG con el estilo de las portadas del Instagram.
+// Son motivos genéricos (decoración), no gráficos del negocio. Heredan el color con currentColor.
+interface Props { name: 'terraza' | 'vermut' | 'carta' | 'gilda'; class?: string }
+const { name, class: cls } = Astro.props;
+---
+<svg class:list={['illu', `illu--${name}`, cls]} aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+  viewBox={name === 'terraza' ? '0 0 240 120' : name === 'vermut' ? '0 0 220 170' : name === 'carta' ? '0 0 180 200' : '0 0 120 220'}>
+  {name === 'terraza' && (
+    <g>
+      <!-- maceta izquierda -->
+      <path d="M14 112h28l-3-26H17z" /><path d="M16 92h24" />
+      <path d="M28 86V44" /><path d="M28 70c-8-2-14-10-14-20 9 1 14 9 14 20z" /><path d="M28 60c7-3 12-11 11-20-8 2-12 10-11 20z" />
+      <path d="M28 52c-5-4-7-11-5-18 6 3 7 11 5 18z" /><path d="M28 78c6 0 12-5 14-12-7 0-12 5-14 12z" />
+      <!-- silla izquierda -->
+      <path d="M66 112V64" /><path d="M66 64c0-6 4-10 10-10" /><path d="M66 84h26" /><path d="M92 84v28" /><path d="M66 74h22" />
+      <!-- mesa -->
+      <path d="M100 72h40" /><path d="M120 72v38" /><path d="M108 112h24" /><path d="M110 72c0-4 4-6 10-6s10 2 10 6" />
+      <!-- silla derecha -->
+      <path d="M174 112V64" /><path d="M174 64c0-6-4-10-10-10" /><path d="M174 84h-26" /><path d="M148 84v28" /><path d="M174 74h-22" />
+      <!-- maceta derecha -->
+      <path d="M198 112h28l-3-26h-22z" /><path d="M200 92h24" />
+      <path d="M212 86V48" /><path d="M212 58l-10-12M212 66l12-14M212 74l-12-8M212 50l6-12M212 80l10-6" />
+      <path d="M8 113h224" opacity=".5" />
+    </g>
+  )}
+  {name === 'vermut' && (
+    <g>
+      <!-- sifón -->
+      <path d="M40 160V70c0-10 6-16 16-16h12c10 0 16 6 16 16v90z" />
+      <path d="M40 150h44" /><path d="M48 54V34h28v20" /><path d="M76 38h18c4 0 6 2 6 6v6" /><path d="M48 30h28" /><path d="M58 30V20h10l14 6" />
+      <path d="M50 76v60" opacity=".5" /><path d="M58 76v40" opacity=".5" />
+      <!-- vaso de vermú -->
+      <path d="M116 92l6 66h50l6-66z" /><path d="M119 116h56" />
+      <rect x="130" y="104" width="22" height="20" rx="3" transform="rotate(-10 141 114)" />
+      <circle cx="160" cy="128" r="9" /><path d="M160 119v18M151 128h18M154 122l12 12M166 122l-12 12" opacity=".7" />
+      <path d="M140 140c2 3 6 4 9 2" /><circle cx="148" cy="96" r="5" /><path d="M148 91l14-26" />
+      <path d="M100 112h-8M102 124h-12M100 136h-6" opacity=".5" />
+    </g>
+  )}
+  {name === 'carta' && (
+    <g>
+      <path d="M38 24h104l-4 168H34z" transform="rotate(-6 90 108)" />
+      <g transform="rotate(-6 90 108)">
+        <rect x="70" y="16" width="40" height="14" rx="3" />
+        <path d="M76 50h28M66 62h48" /><path d="M90 40v4" />
+        <path d="M56 84h46M56 96h56M56 108h40M56 124h52M56 136h34" opacity=".55" />
+      </g>
+      <circle cx="132" cy="160" r="26" /><circle cx="132" cy="160" r="20" opacity=".5" />
+      <circle cx="124" cy="156" r="6" /><circle cx="138" cy="164" r="6" /><path d="M110 176l44-34" />
+    </g>
+  )}
+  {name === 'gilda' && (
+    <g>
+      <path d="M60 6v208" />
+      <path d="M60 18c-10 8-12 22-4 30 6 6 14 2 14-8 0-12-10-14-10-22" />
+      <circle cx="60" cy="74" r="14" /><path d="M54 68c2-3 5-4 8-4" />
+      <path d="M60 96c20-6 40 4 42 22-14 8-34 6-42-6" /><path d="M60 112c-22 2-38 16-36 34 16 2 32-10 36-26" />
+      <circle cx="60" cy="160" r="14" /><path d="M54 154c2-3 5-4 8-4" />
+      <path d="M50 214l10-12 10 12" />
+    </g>
+  )}
+</svg>

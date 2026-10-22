@@ -1,0 +1,62 @@
+---
+import Illustration from './Illustration.astro';
+import { site, hours } from '../data/site';
+---
+<section class="visit section" id="visitanos" aria-labelledby="visit-title">
+  <div class="container visit__grid">
+    <header class="visit__head reveal">
+      <p class="eyebrow">Visítanos</p>
+      <h2 id="visit-title" class="display">Reserva<br />y horario</h2>
+    </header>
+
+    <div class="visit__block visit__reserve reveal" id="reservar">
+      <span class="visit__num" aria-hidden="true">01</span>
+      <h3>Reservas</h3>
+      <p>Reserva tu mesa por teléfono. El rincón de terraza funciona sin reserva.</p>
+      <a class="visit__phone" href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a>
+      <a class="btn btn--olive" href={`tel:${site.phoneE164}`}>Llamar para reservar</a>
+    </div>
+
+    <div class="visit__block reveal">
+      <span class="visit__num" aria-hidden="true">02</span>
+      <h3>Horario</h3>
+      <table class="hours" data-hours>
+        <caption class="sr-only">Horario de apertura</caption>
+        <tbody>
+          {hours.map((h) => (
+            <tr data-day={h.day} class:list={{ 'is-closed': h.slots.length === 0 }}>
+              <th scope="row">{h.label}</th>
+              <td>{h.slots.length ? h.slots.join(' · ') : 'Cerrado'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="visit__block reveal">
+      <span class="visit__num" aria-hidden="true">03</span>
+      <h3>Dónde</h3>
+      <address>
+        {site.address.street}<br />
+        {site.address.postalCode} Alcoi (Alcoy), {site.address.region}
+      </address>
+      <p class="visit__muted">En el centro, cerca de la calle Sant Nicolau y de la Plaça de Dins.</p>
+      <a class="link-arrow" href={site.mapsLink} target="_blank" rel="noopener">Cómo llegar</a>
+    </div>
+
+    <div class="visit__map reveal" data-map>
+      <div class="map-ph__grid" aria-hidden="true"></div>
+      <div class="map-ph">
+        <div class="map-ph__text">
+          <p class="map-ph__addr">Carrer Sant Maure, 32<br />Alcoi</p>
+          <p>El mapa de Google se carga solo si lo pides (así no se instalan cookies de terceros al entrar).</p>
+          <div class="map-ph__btns">
+          <button type="button" class="btn" data-map-load data-src={site.mapsEmbed}>Ver mapa</button>
+          <a class="btn" href={site.mapsLink} target="_blank" rel="noopener">Abrir en Google Maps</a>
+          </div>
+        </div>
+        <Illustration name="terraza" class="map-ph__illu" />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import Illustration from './Illustration.astro';
+import { food, drinks, allergens, allergenNote, type MenuSection } from '../data/menu';
+import tuetano from '../assets/photos/tuetano-steak-tartar.jpg';
+import bikini from '../assets/photos/bikini-trufado.jpg';
+interface Props { standalone?: boolean }
+const { standalone = false } = Astro.props;
+const H = standalone ? 'h1' : 'h2';
+const tabs: { id: string; label: string; sections: MenuSection[] }[] = [
+  { id: 'comida', label: 'Comida', sections: food },
+  { id: 'bebida', label: 'Bebida', sections: drinks },
+];
+const usedAllergens = Object.entries(allergens);
+---
+<section class="menu section" id="carta" aria-labelledby="menu-title">
+  <div class="container">
+    <header class="menu__head">
+      <div class="reveal">
+        <p class="eyebrow">Octubre 2026 · precios en €</p>
+        <H id="menu-title" class="display menu__title">La carta<br />de Gildas</H>
+        <p class="menu__claim">verde, salada y un poco picante</p>
+      </div>
+      <Illustration name="carta" class="menu__illu reveal" />
+      <ul class="menu__stars reveal" role="list" aria-label="Platos estrella">
+        <li class="star-card zoom">
+          <Image src={tuetano} alt="Tuétano con steak tartar sobre tabla con tostas" widths={[300, 480]} sizes="(min-width: 900px) 220px, 44vw" loading="lazy" />
+          <p><span>Tuétano steak tartar</span><span>21 €</span></p>
+        </li>
+        <li class="star-card zoom">
+          <Image src={bikini} alt="Bikini trufado de lacón y queso en mollete con patatas" widths={[300, 360]} sizes="(min-width: 900px) 220px, 44vw" loading="lazy" />
+          <p><span>Bikini trufado</span><span>5 €</span></p>
+        </li>
+      </ul>
+    </header>
+
+    <div class="tabs reveal" role="tablist" aria-label="Carta" data-menu-tabs>
+      {tabs.map((t, i) => (
+        <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+          {t.label}
+        </button>
+      ))}
+    </div>
+
+    {tabs.map((t, i) => (
+      <div class="menu__panel" role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} data-active={i === 0 ? 'true' : 'false'} tabindex="0">
+        <nav class="menu__index" aria-label={`Secciones de ${t.label.toLowerCase()}`}>
+          {t.sections.map((s) => <a href={`#m-${s.id}`}>{s.title}</a>)}
+        </nav>
+        <div class="menu__cols">
+          {t.sections.map((s) => (
+            <section class="menu-sec" id={`m-${s.id}`} aria-labelledby={`mh-${s.id}`}>
+              <h3 id={`mh-${s.id}`} class="menu-sec__title">
+                {s.title}
+                {s.note && <small>{s.note}</small>}
+              </h3>
+              {s.notInTerrace && <p class="menu-sec__flag">Solo en sala · no disponible en la carta de terraza</p>}
+              <ul role="list" class="menu-list">
+                {s.items.map((d) => (
+                  <li class:list={['dish', { 'dish--star': d.star }]}>
+                    <p class="dish__row">
+                      <span class="dish__name">{d.name}{d.star && <span class="dish__mark" aria-label="Recomendado" title="Recomendado">✦</span>}</span>
+                      <span class="dish__leader" aria-hidden="true"></span>
+                      <span class="dish__price">{d.price}<span aria-hidden="true"> €</span><span class="sr-only"> euros</span></span>
+                    </p>
+                    {d.desc && <p class="dish__desc">{d.desc}</p>}
+                    {d.allergens && d.allergens.length > 0 && (
+                      <p class="dish__allergens">
+                        <span class="sr-only">Alérgenos: {d.allergens.map((a) => allergens[a].name).join(', ')}</span>
+                        {d.allergens.map((a) => <abbr title={allergens[a].name} aria-hidden="true">{allergens[a].code}</abbr>)}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <aside class="menu__foot reveal" aria-label="Alérgenos y terraza">
+      <div>
+        <h3 class="menu__foot-title">Alérgenos</h3>
+        <ul role="list" class="legend">
+          {usedAllergens.map(([, a]) => <li><abbr title={a.name}>{a.code}</abbr> {a.name}</li>)}
+        </ul>
+        <p class="menu__note">{allergenNote}</p>
+      </div>
+      <div>
+        <h3 class="menu__foot-title">En la terraza</h3>
+        <p class="menu__note">El rincón de terraza tiene carta propia, sin reservas: la misma que en sala, salvo los platitos.</p>
+      </div>
+    </aside>
+  </div>
+</section>

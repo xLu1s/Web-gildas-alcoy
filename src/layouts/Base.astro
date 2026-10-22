@@ -1,0 +1,89 @@
+---
+import '@fontsource-variable/antonio';
+import '@fontsource-variable/instrument-sans';
+import '../styles/global.css';
+import { site, openingHoursLd } from '../data/site';
+import { publicUrl } from '../lib/base';
+
+interface Props { title: string; description: string; noJsonLd?: boolean }
+const { title, description, noJsonLd = false } = Astro.props;
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = new URL(path, Astro.site);
+const home = new URL(publicUrl(''), Astro.site);
+const ogImage = new URL(publicUrl('og-image.jpg'), Astro.site);
+const menuUrl = new URL(publicUrl('carta/'), Astro.site);
+
+// JSON-LD: solo datos con fuente pública (brief 22/10/2026). Sin aggregateRating (Google no admite
+// valoraciones "self-serving" de terceros publicadas por el propio negocio) y sin priceRange (no confirmado).
+// Horario: el de la bio de Instagram, PENDIENTE de confirmar (Google Maps dice otra cosa).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BarOrPub',
+  '@id': `${home.href}#negocio`,
+  name: site.name,
+  alternateName: ['Gildas Alcoy', 'Gildas Alcoi', 'Gildas'],
+  description: `${site.tagline} Bar de gildas, tapas y vermú de grifo en el centro de Alcoy (Alcoi).`,
+  slogan: site.claim,
+  image: ogImage.href,
+  logo: new URL(publicUrl('favicon.svg'), Astro.site).href,
+  url: home.href,
+  telephone: site.phoneE164,
+  email: site.email,
+  servesCuisine: ['Tapas', 'Pintxos', 'Gildas', 'Española'],
+  acceptsReservations: true,
+  hasMenu: menuUrl.href,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    postalCode: site.address.postalCode,
+    addressLocality: 'Alcoy',
+    addressRegion: site.address.region,
+    addressCountry: 'ES',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  hasMap: site.mapsLink,
+  sameAs: [site.instagram, site.facebook],
+  openingHoursSpecification: openingHoursLd,
+};
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#3A4029" />
+    <meta name="geo.region" content="ES-A" />
+    <meta name="geo.placename" content="Alcoy / Alcoi" />
+    <meta name="geo.position" content={`${site.geo.lat};${site.geo.lng}`} />
+    <meta name="ICBM" content={`${site.geo.lat}, ${site.geo.lng}`} />
+    <link rel="icon" type="image/svg+xml" href={publicUrl('favicon.svg')} />
+    <link rel="apple-touch-icon" href={publicUrl('apple-touch-icon.png')} />
+    <link rel="sitemap" href={publicUrl('sitemap.xml')} />
+
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Fachada de Gildas en Alcoy junto al logo y el texto «Gildas, tapas y vermú de grifo»" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <slot name="head" />
+    {!noJsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <slot />
+    <script src="../scripts/main.ts"></script>
+  </body>
+</html>

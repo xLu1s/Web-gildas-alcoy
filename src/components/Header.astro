@@ -1,0 +1,31 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+import { publicUrl } from '../lib/base';
+interface Props { solid?: boolean }
+const { solid = false } = Astro.props;
+const home = publicUrl('');
+const links = [
+  { href: `${home}#concepto`, label: 'Concepto' },
+  { href: `${home}#carta`, label: 'Carta' },
+  { href: `${home}#local`, label: 'El local' },
+  { href: `${home}#visitanos`, label: 'Horario' },
+];
+---
+<header class:list={['site-header', { 'is-solid': solid }]} data-header>
+  <div class="site-header__inner">
+    <a class="brand" href={home} aria-label="Gildas | Alcoy, inicio">
+      <Logo variant="icon" class="brand__icon" label="" />
+      <span class="brand__word">Gildas<span class="brand__sep">|</span>Alcoy</span>
+    </a>
+    <nav class="nav" data-nav aria-label="Principal">
+      <ul role="list">
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <a class="btn btn--accent nav__cta" href={`tel:${site.phoneE164}`}>Reservar · {site.phoneDisplay}</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú" data-nav-toggle>
+      <span></span><span></span>
+    </button>
+  </div>
+</header>

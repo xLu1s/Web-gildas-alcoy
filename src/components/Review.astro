@@ -1,0 +1,19 @@
+---
+import { reviews } from '../data/reviews';
+import { site } from '../data/site';
+---
+{reviews.length > 0 && (
+  <section class="review section" aria-labelledby="review-title">
+    <div class="container review__inner">
+      <h2 id="review-title" class="eyebrow reveal">Lo que dicen en Google</h2>
+      {reviews.map((r) => (
+        <figure class="review__item reveal">
+          <p class="review__stars" aria-label={`${r.rating} de 5 estrellas`}>{'★'.repeat(r.rating)}</p>
+          <blockquote class="review__quote"><p>«{r.text}»</p></blockquote>
+          <figcaption>{r.author}{r.badge && <span> · {r.badge}</span>} · Reseña en {r.source}</figcaption>
+        </figure>
+      ))}
+      <a class="link-arrow reveal" href={site.mapsLink} target="_blank" rel="noopener">Ver todas las reseñas en Google Maps</a>
+    </div>
+  </section>
+)}
