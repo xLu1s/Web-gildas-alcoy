@@ -419,9 +419,8 @@ ul[role='list'], ol[role='list'] { list-style: none; margin: 0; padding: 0; }
 .visit__phone { display: block; font-family: var(--f-display); font-weight: 500; font-size: clamp(2.2rem, 1.6rem + 2vw, 3.2rem); letter-spacing: 0.06em; text-decoration: none; color: var(--olive); margin: 0.4rem 0 1.2rem; }
 .visit__phone:hover { color: var(--ink); }
 .visit__muted { font-size: 0.92rem; }
-.visit__btns { display: flex; flex-wrap: wrap; gap: 0.7rem; }
-.btn--line { --fg: var(--olive); --bd: var(--olive); }
-.btn--line:hover { --bg: var(--olive); --fg: var(--cream); }
+.visit__wa { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; text-decoration-color: currentColor; }
+.visit__wa:hover { color: var(--olive); }
 .hours { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .hours th, .hours td { padding: 0.55rem 0; border-bottom: 1px solid var(--line-ink); text-align: left; vertical-align: top; }
 .hours th { font-weight: 500; }
@@ -462,20 +461,16 @@ ul[role='list'], ol[role='list'] { list-style: none; margin: 0; padding: 0; }
   .site-footer { padding-bottom: 6rem; }
 }
 
-/* ---------- Botones Reservar fijos (móvil): Llamar + WhatsApp ---------- */
+/* ---------- Botón Reservar fijo (móvil) ---------- */
 .fab-reserve {
   position: fixed; z-index: 40; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom));
-  transform: translate(-50%, 0); display: none; gap: 0.5rem; width: max-content; max-width: calc(100vw - 24px);
+  transform: translate(-50%, 0); display: none; align-items: center; gap: 0.6rem;
+  padding: 0.95rem 1.8rem; border-radius: 999px; background: var(--accent); color: var(--ink);
+  font-family: var(--f-display); text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.95rem; font-weight: 600;
+  text-decoration: none; box-shadow: 0 10px 30px rgba(30, 33, 20, 0.35);
   transition: transform 0.4s var(--ease), opacity 0.4s;
 }
-.fab-reserve__btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
-  padding: 0.95rem 1.35rem; border-radius: 999px; background: var(--accent); color: var(--ink);
-  font-family: var(--f-display); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.92rem; font-weight: 600;
-  text-decoration: none; box-shadow: 0 10px 30px rgba(30, 33, 20, 0.35); white-space: nowrap;
-}
-.fab-reserve__btn--wa { background: var(--olive); color: var(--cream); box-shadow: 0 10px 30px rgba(30, 33, 20, 0.35), inset 0 0 0 1px rgba(230, 223, 203, 0.28); }
-@media (max-width: 900px) { .fab-reserve { display: flex; } }
+@media (max-width: 900px) { .fab-reserve { display: inline-flex; } }
 
 /* ---------- Reveal ---------- */
 .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
